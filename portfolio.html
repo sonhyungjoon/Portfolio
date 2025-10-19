@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonHyung | Music Producer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Midnight Slate & Electric Blue -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling application designed to guide the user (A&R) through a compelling narrative. It starts with a strong visual hero section, moves to a personal introduction, showcases key achievements visually, presents an interactive music player for featured tracks, details skills and leadership experience, adds an AI-powered 'vision generator' for a unique interactive element, and concludes with clear calls-to-action (social links & contact). This structure was chosen to create an engaging, premium experience that tells a story and demonstrates technical creativity. -->
+    <!-- Visualization & Content Choices: Report Info -> Key Strengths -> Goal: Impress -> Viz/Presentation: Icon-based cards -> Interaction: Subtle hover effects -> Justification: More dynamic and scannable than a bullet list. / Report Info -> Featured Tracks -> Goal: Audition -> Viz/Presentation: Interactive player UI -> Interaction: Click to load track details and link -> Justification: An interactive experience is more professional. / Report Info -> AI Vision -> Goal: 'Wow' Factor & Tech Savvy -> Viz/Presentation: Button + Text Area -> Interaction: Click to call Gemini API -> Justification: Showcases innovation beyond music production. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .hero-bg {
+            background-color: #111827;
+            background-image: radial-gradient(circle at 1px 1px, #374151 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+        .text-gradient {
+            background-image: linear-gradient(to right, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .track-item.active {
+            background-color: #e0e7ff;
+            border-left-color: #3b82f6;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold tracking-tight">SonHyung</a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="font-medium text-gray-500 hover:text-blue-600 transition-colors">About</a>
+                    <a href="#music" class="font-medium text-gray-500 hover:text-blue-600 transition-colors">Music</a>
+                    <a href="#experience" class="font-medium text-gray-500 hover:text-blue-600 transition-colors">Experience</a>
+                    <a href="#vision" class="font-medium text-gray-500 hover:text-blue-600 transition-colors">AI Vision</a>
+                    <a href="#contact" class="font-medium text-gray-500 hover:text-blue-600 transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-bg text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-48 text-center">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4">SONHYUNG</h1>
+                <p class="text-xl md:text-2xl font-medium text-gray-300 mb-2">Music Producer Portfolio</p>
+                <p class="max-w-3xl mx-auto text-lg text-gray-400">일렉트로닉 사운드를 기반으로 장르의 경계를 탐험하는 프로듀서 손형입니다.</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 md:py-28 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight">To. OMNISOUND Record</h2>
+                    <p class="mt-4 text-lg text-gray-600">A&R 팀 담당자님께,</p>
+                </div>
+                <p class="text-lg text-gray-700 leading-relaxed text-center">
+                    안녕하세요. 리스너들에게 잊지 못할 사운드 경험을 선사하는 프로듀서 손형(SonHyung)입니다.
+                    단순한 음악을 넘어, 저의 정체성(IDENTITY)을 통해 편견을 뛰어넘는 새로운 트렌드를 만들고 싶습니다. OMNISOUND record가 추구하는 음악적 방향성은 제가 나아가고자 하는 길과 유사하기에, 귀사와 함께 최고의 시너지를 만들어낼 수 있다고 확신하여 포트폴리오를 제출합니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- Key Strengths Section -->
+        <section class="py-20 md:py-28">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight">핵심 역량</h2>
+                    <p class="mt-4 text-lg text-gray-600">저를 대표하는 핵심적인 강점들입니다.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-4xl text-blue-600 mb-3">🎵</div>
+                        <h3 class="text-lg font-bold mb-2">공식 앨범 발매</h3>
+                        <p class="text-gray-600">[EP] IDENTITY 프로듀싱 및 발매를 통해 아티스트로서의 역량을 증명했습니다.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-4xl text-blue-600 mb-3">📈</div>
+                        <h3 class="text-lg font-bold mb-2">꾸준한 창작 활동</h3>
+                        <p class="text-gray-600">SoundCloud에 78곡 이상의 데모, 싱글, 리믹스 등을 발표하며 창작의 끈을 놓지 않았습니다.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-4xl text-blue-600 mb-3">🚀</div>
+                        <h3 class="text-lg font-bold mb-2">설립자 & 리더</h3>
+                        <p class="text-gray-600">미디 작곡 동아리 'IDIM'을 직접 설립하고 성공적으로 운영하며 리더십을 발휘했습니다.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+                        <div class="text-4xl text-blue-600 mb-3">🤝</div>
+                        <h3 class="text-lg font-bold mb-2">다양한 협업 경험</h3>
+                        <p class="text-gray-600">힙합 아티스트와의 협업 프로젝트를 성공적으로 리딩하며 커뮤니케이션 능력을 입증했습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Section -->
+        <section id="music" class="py-20 md:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight">Featured Tracks</h2>
+                    <p class="mt-4 text-lg text-gray-600">저의 음악적 색깔을 가장 잘 보여주는 대표 트랙 3곡입니다.</p>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/3">
+                        <ul id="tracklist" class="space-y-2">
+                            <li class="track-item p-4 rounded-lg cursor-pointer border-l-4 border-transparent transition-all duration-300 active" data-title="Grown up" data-genre="Progressive House" data-desc="점진적으로 고조되는 에너지의 폭발적인 조합을 통해 깊은 몰입감을 선사하는 프로그레시브 하우스 트랙입니다." data-link="https://soundcloud.com/leftpunk-1/sonhyung-grown-up">
+                                <h4 class="font-bold text-lg">Grown up</h4>
+                                <p class="text-sm text-gray-500">Progressive House</p>
+                            </li>
+                            <li class="track-item p-4 rounded-lg cursor-pointer border-l-4 border-transparent transition-all duration-300" data-title="EGO X IDIM" data-genre="Hip-Hop / Future" data-desc="힙합의 그루브 위에 멜로디컬한 퓨처 신스를 결합한 실험적인 트랙입니다. 장르의 융합을 통해 만들어내는 독특한 분위기를 느낄 수 있습니다." data-link="https://youtu.be/KFVks1SMosg?si=hFL6BSpfNQ4QPDpz">
+                                <h4 class="font-bold text-lg">EGO X IDIM</h4>
+                                <p class="text-sm text-gray-500">Hip-Hop / Future</p>
+                            </li>
+                            <li class="track-item p-4 rounded-lg cursor-pointer border-l-4 border-transparent transition-all duration-300" data-title="Inspiration Curcuit" data-genre="Unreleased Demo" data-desc="가장 최근에 작업한 미공개 데모곡입니다. 현재 저의 음악적 관심사와 발전된 사운드 디자인 역량을 엿볼 수 있는 트랙입니다." data-link="https://on.soundcloud.com/K56GMIcCE1yp9GhnN2">
+                                <h4 class="font-bold text-lg">Inspiration Curcuit</h4>
+                                <p class="text-sm text-gray-500">Unreleased Demo</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-2/3 bg-gray-50 p-8 rounded-lg">
+                        <div id="track-display">
+                            <h3 id="track-title" class="text-3xl font-bold">Grown up</h3>
+                            <p id="track-genre" class="text-md text-blue-600 font-semibold mt-1">Progressive House</p>
+                            <p id="track-desc" class="mt-4 text-gray-700 text-lg leading-relaxed">점진적으로 고조되는 에너지의 폭발적인 조합을 통해 깊은 몰입감을 선사하는 프로그레시브 하우스 트랙입니다.</p>
+                            <a id="track-link" href="https://soundcloud.com/leftpunk-1/sonhyung-grown-up" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">
+                                Listen Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Expertise -->
+        <section class="py-20 md:py-28">
+             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight">Skills & Expertise</h2>
+                    <p class="mt-4 text-lg text-gray-600">트렌디한 사운드 감각을 바탕으로 완성도 높은 결과물을 만들어냅니다.</p>
+                </div>
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">프로듀싱</h3>
+                        <p class="text-gray-700">매력적인 멜로디와 코드 진행을 중심으로, 기승전결이 뚜렷한 트랙을 구성하는 데 강점을 가지고 있습니다.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">사운드 디자인</h3>
+                        <p class="text-gray-700">테슬라 코일의 전기 소리에서 영감을 받은 날카로운 리드 사운드가 저의 시그니쳐 사운드입니다. 
+                        <a href="https://youtu.be/is68BzJ5dkU?si=xQbP1ekr_JwCyD4v" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold hover:underline">[예시]</a></p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">믹싱 & 마스터링</h3>
+                        <p class="text-gray-700">기본적인 셀프 믹싱 및 마스터링을 통해 의도한 사운드를 명확하게 구현할 수 있습니다.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">주요 사용 DAW</h3>
+                        <p class="text-gray-700 font-semibold">FL Studio</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 md:py-28 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight">Experience</h2>
+                    <p class="mt-4 text-lg text-gray-600">음악적 성장을 이끈 주요 활동들입니다.</p>
+                </div>
+                <div class="space-y-12">
+                     <div>
+                        <h3 class="text-2xl font-bold mb-2">미디 작곡 동아리 'IDIM' 설립 및 운영</h3>
+                        <p class="text-md font-semibold text-gray-500 mb-4">2024년 ~ 2025년 | 설립자 및 회장</p>
+                        <p class="text-gray-700 leading-relaxed">작곡에 대한 열정을 가진 동료들을 모아 미디 작곡 동아리 'IDIM'을 직접 설립하고 운영했습니다. 정기적인 스터디, 공동 작업 프로젝트, 발표회 등을 통해 구성원들의 음악적 성장을 이끌었으며, 리더십과 커뮤니티 빌딩 능력을 함양했습니다.</p>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-bold mb-2">대학교 힙합 동아리 프로듀싱</h3>
+                        <p class="text-md font-semibold text-gray-500 mb-4">2024년 ~ 2025년 | 총괄 프로듀서</p>
+                        <p class="text-gray-700 leading-relaxed">여러 래퍼 아티스트들과의 긴밀한 소통을 통해 각 아티스트의 장점을 살린 비트를 제작하고 프로젝트를 성공적으로 완수했습니다. 이를 통해 협업 능력과 디렉팅 역량을 증명했습니다.</p>
+                        <div class="mt-4">
+                            <a href="https://www.youtube.com/shorts/j5ZIpkVwAmE" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold hover:underline mr-4">결과물 1</a>
+                            <a href="https://youtu.be/KFVks1SMosg?si=SqsiYiWqqr4wRyzf" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold hover:underline">결과물 2</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Vision Section -->
+        <section id="vision" class="py-20 md:py-28">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold tracking-tight">AI Vision: My Next Step</h2>
+                <p class="mt-4 text-lg text-gray-600">Gemini AI가 저의 프로필을 분석하여 생성하는 미래 활동 비전입니다.</p>
+                <button id="generate-vision-btn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
+                    나의 미래 비전 생성하기
+                </button>
+                <div id="vision-result-container" class="mt-8 min-h-[150px] bg-white p-6 rounded-lg shadow-md border border-gray-200 text-left">
+                    <p class="text-gray-500">버튼을 클릭하여 AI가 제안하는 저의 다음 스텝을 확인해보세요.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center">
+                 <h2 class="text-3xl font-bold tracking-tight">Contact & Channels</h2>
+                 <p class="mt-4 text-lg text-gray-400">함께 성장하며 새로운 음악씬을 만들어나갈 기회를 고대하겠습니다.</p>
+                 <p class="mt-8 text-xl font-semibold">손형준 (SonHyung)</p>
+                 <a href="mailto:dapunker@naver.com" class="text-lg text-blue-400 hover:text-blue-300 transition-colors">dapunker@naver.com</a>
+
+                <div class="flex justify-center space-x-6 mt-8">
+                    <a href="https://soundcloud.com/leftpunk-1" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">SoundCloud</a>
+                    <a href="https://www.youtube.com/channel/UCpte0S5wn40PgbiF-5AArqA?view_as=subscriber" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">YouTube</a>
+                    <a href="https://www.instagram.com/dapunker/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">Instagram</a>
+                    <a href="https://open.spotify.com/artist/301oj1s4bGzODUgLqxsPpe?si=dxFzFLZYT3WmyCpyM9WU1Q&nd=1&dlsi=0f1dccb6f40e46b5" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">Spotify</a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-black py-4">
+             <p class="text-center text-sm text-gray-500">&copy; 2025 SonHyung. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tracklist Interaction
+            const tracklist = document.getElementById('tracklist');
+            const trackItems = tracklist.querySelectorAll('.track-item');
+            
+            const trackTitle = document.getElementById('track-title');
+            const trackGenre = document.getElementById('track-genre');
+            const trackDesc = document.getElementById('track-desc');
+            const trackLink = document.getElementById('track-link');
+
+            tracklist.addEventListener('click', function (e) {
+                const selectedTrack = e.target.closest('.track-item');
+                if (!selectedTrack) return;
+                trackItems.forEach(item => item.classList.remove('active'));
+                selectedTrack.classList.add('active');
+                trackTitle.textContent = selectedTrack.dataset.title;
+                trackGenre.textContent = selectedTrack.dataset.genre;
+                trackDesc.textContent = selectedTrack.dataset.desc;
+                trackLink.href = selectedTrack.dataset.link;
+            });
+
+            // Gemini API Interaction
+            const generateBtn = document.getElementById('generate-vision-btn');
+            const resultContainer = document.getElementById('vision-result-container');
+
+            async function generateVision() {
+                resultContainer.innerHTML = '<div class="loader"></div>';
+                generateBtn.disabled = true;
+                generateBtn.textContent = '생성 중...';
+
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                
+                const userPrompt = `You are a creative A&R expert at a major record label. Based on the following profile of music producer SonHyung, generate a concise, exciting, and professional future project or career goal for him. The vision should be inspiring and written in Korean, within 2-3 sentences.
+                - Artist Name: SonHyung
+                - Main Genres: Electronic House, Progressive House, Future House, Hip-Hop, EDM
+                - Key Achievements: Released official EP '[IDENTITY]', Published over 78 tracks on SoundCloud, Founded and led a MIDI composition club 'IDIM', Successfully collaborated with university hip-hop artists.`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }],
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const text = candidate.content.parts[0].text;
+                        resultContainer.innerHTML = `<p class="text-lg text-gray-800 leading-relaxed">${text.replace(/\n/g, '<br>')}</p>`;
+                    } else {
+                        throw new Error("No content received from API.");
+                    }
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    resultContainer.innerHTML = `<p class="text-red-500">비전 생성에 실패했습니다. 잠시 후 다시 시도해주세요.</p>`;
+                } finally {
+                    generateBtn.disabled = false;
+                    generateBtn.textContent = '나의 미래 비전 다시 생성하기';
+                }
+            }
+
+            generateBtn.addEventListener('click', generateVision);
+        });
+    </script>
+</body>
+</html>
+
